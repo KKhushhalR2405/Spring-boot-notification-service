@@ -27,9 +27,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	//USer dependencies
-	implementation 'com.google.firebase:firebase-admin:6.11.0'
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
