@@ -1,13 +1,11 @@
 package notification.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import notification.helper.EmailNotificationSenderHelper;
 import notification.request.SendNotificationRequest;
 import notification.response.SendNotificationResponse;
 import notification.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service("email")
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class EmailNotificationServiceImpl implements NotificationService {
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private EmailNotificationSenderHelper emailNotificationSenderHelper;
 
     @Override
     public String getType() {
@@ -24,26 +22,20 @@ public class EmailNotificationServiceImpl implements NotificationService {
 
     @Override
     public SendNotificationResponse send(SendNotificationRequest request) {
+        log.info("START send() with email: {}", request.getEmailId());
         SendNotificationResponse response;
         try{
-            SendEmail(request);
+            emailNotificationSenderHelper.sendEmail(request);
             response = new SendNotificationResponse(200, "SUCCESS");
             log.info("Mail Sent Successfully to {}",request.getEmailId());
         } catch (Exception e){
-            response = new SendNotificationResponse(500, "FAILURE");
+            log.info("Exception occurred in sending Email Notification");
+            log.error("Exception occurred in send()", e);
+            response = new SendNotificationResponse(500, "FAILURE",e.getMessage());
         }
-
+        log.info("END send() with status : {}", response.getResDesc());
         return response;
     }
 
-    @Async
-    private void SendEmail(SendNotificationRequest request){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("reddykhushhal2405@gmail.com");
-        message.setTo(request.getEmailId());
-        message.setText(request.getBody());
-        message.setSubject(request.getSubject());
 
-        javaMailSender.send(message);
-    }
 }

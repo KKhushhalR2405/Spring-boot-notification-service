@@ -1,6 +1,7 @@
 package notification.service.impl;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
@@ -15,8 +16,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PushNotificationServiceImpl implements NotificationService {
 
-    @Autowired
-    private FirebaseMessaging firebaseMessaging;
+    private final FirebaseMessaging firebaseMessaging;
+
+    public PushNotificationServiceImpl(FirebaseMessaging firebaseMessaging) {
+        this.firebaseMessaging = firebaseMessaging;
+    }
 
     @Override
     public String getType() {
@@ -25,6 +29,7 @@ public class PushNotificationServiceImpl implements NotificationService {
 
     @Override
     public SendNotificationResponse send(SendNotificationRequest request) {
+        log.info("START send()");
         SendNotificationResponse response;
         try{
             Notification notification = Notification
@@ -45,8 +50,10 @@ public class PushNotificationServiceImpl implements NotificationService {
             response = new SendNotificationResponse(200, "SUCCESS");
         } catch (Exception e) {
             log.info("Exception occurred in Sending Push Notification!!!!");
+            log.error("Exception occurred in send()", e);
             response = new SendNotificationResponse(500, "FAILURE", e.getMessage());
         }
+        log.info("END send() with status : {}", response.getResDesc());
         return response;
     }
 }
