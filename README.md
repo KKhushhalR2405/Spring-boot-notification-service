@@ -22,6 +22,10 @@ curl --location --request POST 'localhost:8080/notification/send' \
 }'
 ```
 
+![WhatsApp Image 2023-01-03 at 11 20 41](https://user-images.githubusercontent.com/58569950/210305872-25f009a8-da8c-44cd-88b3-90f001d2e141.jpeg)
+
+<hr>
+
 2) cURL for Push Notification
 
 ```
