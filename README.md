@@ -5,6 +5,7 @@
 2) Used Firebase Cloud Messaging for sending push notifications
 3) Used Java Mail Sender for sending email notifications
 4) Added asynchronous execution support
+5) Used Factory Providers for injecting specific services based on channelType.
 
 ## Testing
 
