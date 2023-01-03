@@ -6,6 +6,7 @@
 3) Used Java Mail Sender for sending email notifications
 4) Added asynchronous execution support
 5) Used Factory Providers for injecting specific services based on channelType.
+6) Used ControllerAdvice for GlobalExceptionHandling
 
 ## Testing
 
@@ -39,3 +40,7 @@ curl --location --request POST 'localhost:8080/notification/send' \
     "data": {}
 }'
 ```
+
+Exception Schema 
+![exception doc](https://user-images.githubusercontent.com/58569950/210321444-edbd8320-c4c4-408c-a957-c0026d1f8f3f.png)
+
