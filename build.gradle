@@ -28,6 +28,8 @@ dependencies {
 
 	//USer dependencies
 	implementation 'com.google.firebase:firebase-admin:9.1.1'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+
 }
 
 tasks.named('test') {

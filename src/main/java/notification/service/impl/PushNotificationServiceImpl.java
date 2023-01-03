@@ -6,6 +6,8 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.extern.slf4j.Slf4j;
+import notification.exception.ChannelTypeNotFoundException;
+import notification.exception.DataNotFoundException;
 import notification.request.SendNotificationRequest;
 import notification.response.SendNotificationResponse;
 import notification.service.NotificationService;
@@ -48,7 +50,10 @@ public class PushNotificationServiceImpl implements NotificationService {
             String result = firebaseMessaging.send(message);
             log.info("Response from firebaseMessaging : {}",result);
             response = new SendNotificationResponse(200, "SUCCESS");
-        } catch (Exception e) {
+        } catch (NullPointerException nullPointerException){
+            throw new DataNotFoundException("Data not found");
+        }
+        catch (Exception e) {
             log.info("Exception occurred in Sending Push Notification!!!!");
             log.error("Exception occurred in send()", e);
             response = new SendNotificationResponse(500, "FAILURE", e.getMessage());
