@@ -1,5 +1,11 @@
 # Spring-boot-notification-service
 
+## Features
+1) Send notification(Email/Push) based on channelType
+2) Used Firebase Cloud Messaging for sending push notifications
+3) Used Java Mail Sender for sending email notifications
+4) Added asynchronous execution support
+
 ## Testing
 
 1) cURL for Email Notification
